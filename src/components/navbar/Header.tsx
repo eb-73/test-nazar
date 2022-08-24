@@ -4,7 +4,7 @@ import Link from "next/link";
 import ToggleButton from "@/components/navbar/ToggleButton";
 const Header = () => {
 	return (
-		<div className="sticky top-0 w-full text-black bg-white shadow-sm rounded-3xl dark:bg-primary-dark dark:text-white ">
+		<div className="sticky top-0 z-50 w-full text-black bg-white shadow-sm rounded-3xl dark:bg-primary-dark dark:text-white ">
 			<div className="container flex items-center justify-between p-4">
 				<div className="flex gap-4">
 					<Link href="/">
