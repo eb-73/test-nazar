@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "noUnusedLocals": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "typeRoots": ["src/types/*.d.ts"],
+        "paths": {
+            "@/assets/*": ["src/assets/*"],
+            "@/components/*": ["src/components/*"],
+            "@/contexts/*": ["src/contexts/*"],
+            "@/helpers/*": ["src/helpers/*"],
+            "@/hooks/*": ["src/hooks/*"],
+            "@/pages/*": ["src/pages/*"],
+            "@/services/*": ["src/services/*"],
+            "@/styles/*": ["src/styles/*"],
+            "@/theme/*": ["src/theme/*"],
+            "@/types/*": ["src/types/*"]
+        },
+        "incremental": true,
+        "esModuleInterop": true
+    },
+    "exclude": ["node_modules"],
+    "include": ["**/*.ts", "**/*.tsx"]
+}
