@@ -10,6 +10,7 @@ import { DefaultSeo } from "next-seo";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import Router from "next/router";
 import NProgress from "nprogress";
+import { ThemeProvider } from "next-themes";
 
 import useHMR from "@/hooks/common/useHMR";
 import ThemeWrapper from "@/theme/ThemeWrapper";
@@ -29,41 +30,43 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 type NextPageWithLayout = NextPage & {
-    getLayout?: (page: ReactElement, pageProps: any) => ReactNode;
+	getLayout?: (page: ReactElement, pageProps: any) => ReactNode;
 };
 
 type CustomAppProps = AppProps & {
-    emotionCache?: EmotionCache;
-    Component: NextPageWithLayout;
+	emotionCache?: EmotionCache;
+	Component: NextPageWithLayout;
 };
 
 function App(props: CustomAppProps) {
-    const { Component, router, emotionCache, pageProps } = props;
-    const getLayout = Component.getLayout || ((page: ReactNode) => page);
-    const { locale = DEFAULT_LOCALE } = router;
-    const cache = useEmotionCache(locale, emotionCache);
-    const { t } = useTranslation();
-    const queryClient = useConfigureQueryClient();
-    useHMR();
+	const { Component, router, emotionCache, pageProps } = props;
+	const getLayout = Component.getLayout || ((page: ReactNode) => page);
+	const { locale = DEFAULT_LOCALE } = router;
+	const cache = useEmotionCache(locale, emotionCache);
+	const { t } = useTranslation();
+	const queryClient = useConfigureQueryClient();
+	useHMR();
 
-    return (
-        <QueryClientProvider client={queryClient}>
-            <GlobalContextProvider>
-                <ThemeWrapper emotionCache={cache} locale={locale}>
-                    <DefaultSeo
-                        titleTemplate={t("site_title") + " | %s"}
-                        defaultTitle={t("site_title")}
-                    />
-                    {getLayout(<Component {...pageProps} />, pageProps)}
-                </ThemeWrapper>
-                <ReactQueryDevtools
-                    panelProps={{ dir: "ltr" }}
-                    position="bottom-right"
-                    initialIsOpen={false}
-                />
-            </GlobalContextProvider>
-        </QueryClientProvider>
-    );
+	return (
+		<QueryClientProvider client={queryClient}>
+			<GlobalContextProvider>
+				<ThemeWrapper emotionCache={cache} locale={locale}>
+					<DefaultSeo
+						titleTemplate={t("site_title") + " | %s"}
+						defaultTitle={t("site_title")}
+					/>
+					<ThemeProvider enableSystem={true} attribute="class">
+						{getLayout(<Component {...pageProps} />, pageProps)}
+					</ThemeProvider>
+				</ThemeWrapper>
+				<ReactQueryDevtools
+					panelProps={{ dir: "ltr" }}
+					position="bottom-right"
+					initialIsOpen={false}
+				/>
+			</GlobalContextProvider>
+		</QueryClientProvider>
+	);
 }
 
 export default appWithTranslation(App, nextI18nConfig);

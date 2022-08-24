@@ -1,7 +1,7 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Home from "@/components/home/Home";
 import { Fragment } from "react";
+import About from "@/components/about/About";
 import { getLayout } from "@/components/layout/PageLayout";
 
 export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
@@ -16,14 +16,15 @@ export const getStaticProps = async ({ locale }: GetStaticPropsContext) => {
 	};
 };
 
-type IndexPageProps = InferGetStaticPropsType<typeof getStaticProps>;
+type AboutPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const IndexPage = (props: IndexPageProps) => {
+const AboutPage = (props: AboutPageProps) => {
 	return (
 		<Fragment>
-			<Home />
+			<About />
 		</Fragment>
 	);
 };
-IndexPage.getLayout = getLayout;
-export default IndexPage;
+AboutPage.getLayout = getLayout;
+
+export default AboutPage;
